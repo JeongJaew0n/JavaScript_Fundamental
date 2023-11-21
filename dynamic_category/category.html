@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
+  <body> 
     <!-- <div>
       <label>(카테고리명)</label>
       <select>
         <option></option>
       </select>
     </div> -->
-
+    
+  
     <style>
       body {
         display: flex;
@@ -360,7 +361,6 @@
           }
 
           let categoryId = relation.categoryId || defaultCategorySymbol;
-          current.defaultKey = current.defaultKey || categoryId;
           current.categories[categoryId] = current.categories[categoryId] || {};
           current = current.categories[categoryId];
         });
@@ -428,7 +428,6 @@
         elementDiv.appendChild(elementSelect);
 
         elementSelect.addEventListener("change", function(e) {
-          relationGroup.defaultKey = e.target.value;
           let nextRelationGroup = relationGroup.categories[e.target.value] || relationGroup.categories[defaultCategorySymbol];
 
           drawCategory(nextRelationGroup, e.target.parentNode);
@@ -438,10 +437,10 @@
           parentElementDiv.appendChild(elementDiv);
         }
 
-        let nextCategories = relationGroup.categories[relationGroup.defaultKey];
-
-        if(nextCategories && Object.keys(nextCategories).length) {
-          drawCategory(relationGroup.categories[relationGroup.defaultKey], elementDiv);
+        let firstKey = Object.keys(relationGroup.categories)[0] || defaultCategorySymbol;
+        
+        if(firstKey && Object.keys(relationGroup.categories[firstKey]).length) {
+          drawCategory(relationGroup.categories[firstKey], elementDiv);
         }
 
         if(!parentElementDiv) {
