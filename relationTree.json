@@ -1,0 +1,28 @@
+{
+  "categoryGroupId": 1,
+  "categories": {
+    "1": {
+      "categoryGroupId": 2,
+      "categories": {
+        "4": {
+          "categoryGroupId": 5,
+          "categories": {
+            "14": { "categoryGroupId": 11, "categories": {} },
+            "15": { "categoryGroupId": 10, "categories": {} },
+            "16": { "categoryGroupId": 7, "categories": {} },
+            "17": { "categoryGroupId": 7, "categories": {} }
+          }
+        },
+        "5": { "categoryGroupId": 6, "categories": {} },
+        "6": { "categoryGroupId": 8, "categories": {
+            "categoryGroupId": "Symbol(default)",
+            "categories": {
+            }
+        } },
+        "7": { "categoryGroupId": 8, "categories": {} }
+      }
+    },
+    "2": { "categoryGroupId": 3, "categories": {} },
+    "3": { "categoryGroupId": 4, "categories": {} }
+  }
+}

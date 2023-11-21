@@ -1,0 +1,101 @@
+[
+  { "relationGroupId": 1, "order": 1, "categoryGroupId": 1, "categoryId": 1 },
+  { "relationGroupId": 1, "order": 2, "categoryGroupId": 2, "categoryId": 4 },
+  { "relationGroupId": 1, "order": 3, "categoryGroupId": 5, "categoryId": 14 },
+  {
+    "relationGroupId": 1,
+    "order": 4,
+    "categoryGroupId": 11,
+    "categoryId": null
+  },
+  { "relationGroupId": 2, "order": 1, "categoryGroupId": 1, "categoryId": 1 },
+  { "relationGroupId": 2, "order": 2, "categoryGroupId": 2, "categoryId": 4 },
+  { "relationGroupId": 2, "order": 3, "categoryGroupId": 5, "categoryId": 15 },
+  {
+    "relationGroupId": 2,
+    "order": 4,
+    "categoryGroupId": 10,
+    "categoryId": null
+  },
+  { "relationGroupId": 3, "order": 1, "categoryGroupId": 1, "categoryId": 1 },
+  { "relationGroupId": 3, "order": 2, "categoryGroupId": 2, "categoryId": 4 },
+  { "relationGroupId": 3, "order": 3, "categoryGroupId": 5, "categoryId": 16 },
+  {
+    "relationGroupId": 3,
+    "order": 4,
+    "categoryGroupId": 7,
+    "categoryId": null
+  },
+  { "relationGroupId": 4, "order": 1, "categoryGroupId": 1, "categoryId": 1 },
+  { "relationGroupId": 4, "order": 2, "categoryGroupId": 2, "categoryId": 4 },
+  { "relationGroupId": 4, "order": 3, "categoryGroupId": 5, "categoryId": 17 },
+  {
+    "relationGroupId": 4,
+    "order": 4,
+    "categoryGroupId": 7,
+    "categoryId": null
+  },
+  { "relationGroupId": 5, "order": 1, "categoryGroupId": 1, "categoryId": 1 },
+  { "relationGroupId": 5, "order": 2, "categoryGroupId": 2, "categoryId": 5 },
+  {
+    "relationGroupId": 5,
+    "order": 3,
+    "categoryGroupId": 6,
+    "categoryId": null
+  },
+  {
+    "relationGroupId": 5,
+    "order": 4,
+    "categoryGroupId": 8,
+    "categoryId": null
+  },
+  {
+    "relationGroupId": 5,
+    "order": 5,
+    "categoryGroupId": 7,
+    "categoryId": null
+  },
+  { "relationGroupId": 6, "order": 1, "categoryGroupId": 1, "categoryId": 1 },
+  { "relationGroupId": 6, "order": 2, "categoryGroupId": 2, "categoryId": 6 },
+  {
+    "relationGroupId": 6,
+    "order": 3,
+    "categoryGroupId": 8,
+    "categoryId": null
+  },
+  {
+    "relationGroupId": 6,
+    "order": 4,
+    "categoryGroupId": 9,
+    "categoryId": null
+  },
+  { "relationGroupId": 7, "order": 1, "categoryGroupId": 1, "categoryId": 1 },
+  { "relationGroupId": 7, "order": 2, "categoryGroupId": 2, "categoryId": 7 },
+  {
+    "relationGroupId": 7,
+    "order": 3,
+    "categoryGroupId": 8,
+    "categoryId": null
+  },
+  { "relationGroupId": 8, "order": 1, "categoryGroupId": 1, "categoryId": 2 },
+  {
+    "relationGroupId": 8,
+    "order": 1,
+    "categoryGroupId": 3,
+    "categoryId": null
+  },
+  {
+    "relationGroupId": 8,
+    "order": 2,
+    "categoryGroupId": 8,
+    "categoryId": null
+  },
+  { "relationGroupId": 9, "order": 1, "categoryGroupId": 1, "categoryId": 3 },
+  {
+    "relationGroupId": 9,
+    "order": 2,
+    "categoryGroupId": 4,
+    "categoryId": null
+  },
+  { "relationGroupId": 9, "order": 3, "categoryGroupId": 8, "categoryId": null }
+]
