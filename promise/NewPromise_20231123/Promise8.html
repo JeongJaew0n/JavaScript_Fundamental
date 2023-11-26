@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let NewPromise = function NewPromise(callback) {
+      let _state = 'panding';
+      let _success;
+      let _error;
+      let _nextResolve;
+      let _nextReject;
+      let _resolve = function(value) {
+        _state = 'fulfilled';
+
+        queueMicrotask(()=>{
+          try {
+            let result = _success && _success(value);
+
+            if(result instanceof NewPromise) {
+              result.then(value=>{
+                _nextResolve && _nextResolve(value);  
+              }, error=>{
+                _nextReject && _nextReject(error);
+              });
+            } else {
+              result = _success ? result:value;
+              _nextResolve && _nextResolve(result);
+            }
+          } catch(e) {
+            _nextReject && _nextReject(e);
+          }          
+        });
+      };
+      let _reject = function(value) {
+        _state = 'rejected';
+
+        queueMicrotask(()=>{
+          try {
+            let result = _error && _error(value);
+            
+            if(result instanceof NewPromise) {
+              result.then(value=>{
+                _nextReject && _nextReject(value);  
+              });
+            } else {
+              if(!_error) {
+                if(_nextReject) {
+                  _nextReject(value);
+                } else {
+                  console.error('Uncaught (in NewPromise)', value);
+                }
+              } else {
+                _nextResolve(result);
+              }
+            }
+          } catch(e) {
+            _nextReject && _nextReject(e);
+          }          
+        });
+      };
+
+      this.then = function(success, error) {
+        _success = success;
+        _error = error;
+
+        return new NewPromise((resolve, reject)=>{
+          _nextResolve = resolve;
+          _nextReject = reject;
+        });
+      }
+
+      this.catch = function(error) {
+        _error = error;
+
+        return new NewPromise((resolve, reject)=>{
+          _nextResolve = resolve;
+          _nextReject = reject;
+        });
+      }
+
+      try {
+        callback(_resolve, _reject);
+      } catch(e) {
+        _reject(e);
+      }      
+    };
+
+    NewPromise.all = function() {
+    };
+
+    let getP = function() {
+      return new Promise((resolve, reject)=>{
+        //throw new Error('throw Error');
+        //reject(new Error('reject Error'));
+        resolve(3);
+      });
+    };
+
+    getP().then(value=>{
+      console.log('promise then:', value);
+      throw new Error('then error');
+      // return new Promise((resolve, reject)=>{
+      //   throw new Error('promise then new Error');
+      //   //reject(new Error('promise then new Error'));
+      // })
+    }).catch(error=>{
+      console.log('promise catch:', error);
+      //throw new Error('catch error');
+      // return new Promise((resolve, reject)=>{
+      //   reject('catchResolve');
+      // });
+      throw new Error('catch error');
+      return 'catch';
+    }).catch(error=>{
+      console.log('promise catch2:', error);
+      return 'catch2';
+    }).then(value=>{
+      console.log('promise then2:', value);
+    });
+
+    let getNP = function () {
+      return new NewPromise((resolve, reject)=>{
+        //throw new Error('throw Error');
+        //reject(new Error('reject Error'));
+        resolve(3);
+      });
+    };
+
+    getNP().then(value=>{
+      console.log('newPromise then:', value);
+      throw new Error('then error');
+      // return new NewPromise((resolve, reject)=>{
+      //   throw new Error('promise then new Error');
+      //   //reject(new Error('promise then new Error'));
+      // })
+    }).catch(error=>{
+      console.log('newPromise catch:', error);
+      //throw new Error('catch error');
+      // return new NewPromise((resolve, reject)=>{
+      //   reject('catchResolve');
+      // });
+      throw new Error('catch error');
+      return 'catch';
+    }).catch(error=>{
+      console.log('newPromise catch2:', error);
+      return 'catch2';
+    }).then(value=>{
+      console.log('newPromise then2:', value);
+    });
+  </script>
+</body>
+</html>

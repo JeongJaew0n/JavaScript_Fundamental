@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let getBuyCountPromise = function() {
+      console.log('Promise:', 2);
+
+      let promise = new Promise((resolve, reject)=>{
+        console.log('Promise:', 3);
+        setTimeout(()=>{
+          resolve(4);
+        }, 1000);
+        console.log('Promise:', 5);
+      });
+      console.log('Promise:', 6);
+
+      return promise;
+    };
+
+    let getPointPromise = function(buyCount) {
+      return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+          resolve(3000*buyCount);
+        }, 2000);
+      });
+    }
+
+
+    // console.log('Promise:', 1);
+    // getBuyCountPromise()
+    //   .then(getPointPromise)
+    //   .then(value=>{
+    //       console.log('Promise:', 'then2', value);
+    //   }).catch(error=>{
+    //       console.error('Promise', 'then', error);
+    //   });
+
+    // Promise.all([getBuyCountPromise(), getBuyCountPromise()])
+    // .then(console.log);
+
+    // console.log('Promise:', 7);
+
+    let test = function(value) {
+      let promise = new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            console.log("hehe:",value);
+          resolve(value + value);
+        }, 1000);
+      });
+
+      return promise;
+    };
+    console.log("this is sync");
+    test(4).then(test).then(console.log);
+
+  </script>
+</body>
+</html>

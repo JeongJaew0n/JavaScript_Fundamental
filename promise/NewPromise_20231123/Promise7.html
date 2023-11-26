@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let NewPromise = function NewPromise(callback) {
+      let _success;
+      let _error;
+      let _nextResolve;
+      let _nextReject;
+      let _resolve = function(value) {
+        queueMicrotask(()=>{
+          let result = _success && _success(value);
+          
+          if(result instanceof NewPromise) {
+            result.then(value=>{
+              _nextResolve && _nextResolve(value);  
+            });
+          } else {
+            _nextResolve && _nextResolve(result);
+          }
+        });
+      };
+      let _reject = function(value) {
+        queueMicrotask(()=>{
+          let result = _error && _error(value);
+          
+          if(result instanceof NewPromise) {
+            result.then(value=>{
+              _nextReject && _nextReject(value);  
+            });
+          } else {
+            if(!_error) {
+              if(_nextReject) {
+                _nextReject(value);
+              } else {
+                console.error(value);
+              }
+            }
+          }
+        });
+      };
+
+      this.then = function(success, error) {
+        _success = success;
+        _error = error;
+
+        return new NewPromise((resolve, reject)=>{
+          _nextResolve = resolve;
+          _nextReject = reject;
+        });
+      }
+
+      this.catch = function(error) {
+        _error = error;
+
+        return new NewPromise((resolve, reject)=>{
+          _nextResolve = resolve;
+          _nextReject = reject;
+        });
+      }
+
+      try {
+        callback(_resolve, _reject);
+      } catch(e) {
+        _reject(e);
+      }      
+    };
+
+    NewPromise.all = function() {
+    };
+
+    // let getBuyCountPromise = function() {
+    //   console.log('Promise:', 2);
+
+    //   let promise = new Promise((resolve, reject)=>{
+    //     console.log('Promise:', 3);
+    //     setTimeout(()=>{
+    //       reject('error');
+    //     }, 1000);
+    //     console.log('Promise:', 5);
+    //   });
+    //   console.log('Promise:', 6);
+
+    //   return promise;
+    // };
+
+    // let getBuyCountNewPromise = function() {
+    //   console.log('NewPromise:', 2);
+
+    //   let promise = new NewPromise((resolve, reject)=>{
+    //     console.log('NewPromise:', 3);
+    //     setTimeout(()=>{
+    //       reject('error');
+    //     }, 1000);
+    //     console.log('NewPromise:', 5);
+    //   });
+    //   console.log('NewPromise:', 6);
+
+    //   return promise;
+    // };
+
+    // let getPointPromise = function(buyCount) {
+    //   return new Promise((resolve, reject)=>{
+    //     setTimeout(()=>{
+    //       resolve(3000*buyCount);
+    //     }, 1000);
+    //   });
+    // }
+
+    // let getPointNewPromise = function(buyCount, resolve) {
+    //   return new NewPromise((resolve, reject)=>{
+    //     setTimeout(()=>{
+    //       resolve(3000*buyCount);
+    //     }, 1000);
+    //   });
+    // }
+
+    // console.log('Promise:', 1);
+    // getBuyCountPromise()
+    //   .then(getPointPromise)
+    //   .then(value=>{
+    //       console.log('Promise:', 'then2', value);
+    //   }).catch(error=>{
+    //       console.error('Promise', 'catch', error);
+    //   });
+
+    // console.log('Promise:', 7);
+
+    // console.log('NewPromise:', 1);
+    // getBuyCountNewPromise()
+    //   .then(getPointNewPromise)
+    //   .then(value=>{
+    //       console.log('NewPromise:', 'then2', value);
+    //   }).catch(error=>{
+    //       console.error('NewPromise', 'catch', error);
+    //   });
+
+    // console.log('NewPromise:', 7);
+
+    // NewPromise.reject = function(value) {
+    //   return new NewPromise((resolve, reject) => {
+    //       reject(e);
+    //   });
+    // }
+
+    // Promise.reject(new Error("에라이")).then(value => console.log("Promise reject!", "case1", value));
+    // Promise.reject(1).then(value => console.log("Promise reject!", "case2", value));
+    // Promise.reject(undefined).then(value => console.log("Promise reject!", "case3", value));
+
+    // NewPromise.reject(new Error("에라이")).then(value => console.log("NewPromise reject!", "case1", value));
+    // NewPromise.reject(1).then(value => console.log("NewPromise reject!", "case2", value));
+    // NewPromise.reject(undefined).then(value => console.log("NewPromise reject!", "case3", value));
+
+    let getP = function() {
+      return new Promise((resolve, reject)=>{
+        //throw new Error('그냥에러Promise');
+        reject(undefined);
+      });
+    };
+
+    getP().then(value=>{
+      console.log('promise then', value);
+    }).catch(error=>{
+      console.log('promise catch', error);
+    }).catch(error=>{
+      console.log('promise catch2', error);
+    });
+
+    let getNP = function () {
+      return new NewPromise((resolve, reject)=>{
+        //throw new Error('그냥에러NewPromise');
+        reject(undefined);
+      });
+    };
+
+    getNP().then(value=>{
+      console.log('newPromise then', value);
+    }).catch(error=>{
+      console.log('newPromise catch', error);
+    }).catch(error=>{
+      console.log('newPromise catch2', error);
+    });
+  </script>
+</body>
+</html>

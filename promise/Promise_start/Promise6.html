@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let NewPromise = function NewPromise(callback) {
+      let _nextResolve;
+      let _resolve = function(value) {
+        queueMicrotask(()=>{
+          let result = _success && _success(value);
+          
+          if(result instanceof NewPromise) {
+            result.then(value=>{
+              _nextResolve && _nextResolve(value);  
+            });
+          } else {
+            _nextResolve && _nextResolve(result);
+          }
+          //29라인 안에 있는 resolve
+        });
+      };
+
+      let _nextReject;
+      let _reject = function(value) {
+        queueMicrotask(()=>{
+          let result = _error && _error(value);
+          _nextReject && _nextReject(result);
+        });
+      };
+
+      let _success;
+      let _error;
+
+      this.then = function(success, error) {
+        _success = success;
+        _error = error;
+
+        return new NewPromise((resolve, reject)=>{
+          _nextResolve = resolve;
+          _nextReject = reject;
+        });
+      }
+
+      this.catch = function(error) {
+        _error = error;
+
+        return this;
+      }
+
+      try {
+        callback(_resolve, _reject);
+      } catch(e) {
+        _reject(e);
+      }      
+    }
+    NewPromise.all = function() {
+    };
+
+    let getBuyCountPromise = function() {
+      console.log('Promise:', 2);
+
+      let promise = new Promise((resolve, reject)=>{
+        console.log('Promise:', 3);
+        setTimeout(()=>{
+          resolve(4);
+        }, 1000);
+        console.log('Promise:', 5);
+      });
+      console.log('Promise:', 6);
+
+      return promise;
+    };
+
+    let getBuyCountNewPromise = function() {
+      console.log('NewPromise:', 2);
+
+      let promise = new NewPromise((resolve, reject)=>{
+        console.log('NewPromise:', 3);
+        setTimeout(()=>{
+          resolve(4);
+        }, 1000);
+        console.log('NewPromise:', 5);
+      });
+      console.log('NewPromise:', 6);
+
+      return promise;
+    };
+
+    let getPointPromise = function(buyCount) {
+      return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+          resolve(3000*buyCount);
+        }, 1000);
+      });
+    }
+
+    let getPointNewPromise = function(buyCount, resolve) {
+      return new NewPromise((resolve, reject)=>{
+        setTimeout(()=>{
+          resolve(3000*buyCount);
+        }, 1000);
+      });
+    }
+
+    console.log('Promise:', 1);
+    getBuyCountPromise()
+      .then(getPointPromise)
+      .then(value=>{
+          console.log('Promise:', 'then2', value);
+      }).catch(error=>{
+          console.error('Promise', 'then', error);
+      });
+
+    console.log('Promise:', 7);
+
+    console.log('NewPromise:', 1);
+    getBuyCountNewPromise()
+      .then(getPointNewPromise)
+      .then(value=>{
+          console.log('NewPromise:', 'then2', value);
+      }).catch(error=>{
+          console.error('NewPromise', 'then', error);
+      });
+
+    console.log('NewPromise:', 7);
+
+
+  </script>
+</body>
+</html>
