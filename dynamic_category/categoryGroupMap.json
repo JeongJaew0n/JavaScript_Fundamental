@@ -1,0 +1,13 @@
+{
+  "1": { "id": 1, "name": "직군", "categories": "Array(3)" },
+  "2": { "id": 2, "name": "개발자구분", "categories": "Array(4)" },
+  "3": { "id": 3, "name": "기획자구분", "categories": "Array(3)" },
+  "4": { "id": 4, "name": "디자이너구분", "categories": "Array(3)" },
+  "5": { "id": 5, "name": "BE보유스킬", "categories": "Array(4)" },
+  "6": { "id": 6, "name": "FE보유스킬", "categories": "Array(4)" },
+  "7": { "id": 7, "name": "숙련도", "categories": "Array(3)" },
+  "8": { "id": 8, "name": "경력", "categories": "Array(2)" },
+  "9": { "id": 9, "name": "ME플랫폼", "categories": "Array(2)" },
+  "10": { "id": 10, "name": "Spring Type", "categories": "Array(2)" },
+  "11": { "id": 11, "name": "JDK Version", "categories": "Array(3)" }
+}
