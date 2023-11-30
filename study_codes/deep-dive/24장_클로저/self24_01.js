@@ -4,7 +4,6 @@
 // import {globalThis} from "./self24_02";
 
 (function () {
-    console.log(counter);
 let counter = (function () {
   let count = 0;
 
