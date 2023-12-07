@@ -625,6 +625,7 @@
               currentRelation.categories[defaultCategorySymbol];
 
             if(!nextRelation) debugger;
+            console.log("before draw");
             createSelectTag(categoryGroup, defaultCategoryId, currentRelation, defaultCategoryIdList);
 
             f(nextRelation, defaultCategoryIdList);
@@ -662,6 +663,7 @@
           let nextRelation = 
             getNextRelation(currentRelation, e.currentTarget.value) || 
             currentRelation.categories[defaultCategorySymbol];
+            console.log(nextRelation);
           f(nextRelation, defaultCategoryIdList);
         });
         
