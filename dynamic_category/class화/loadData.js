@@ -377,7 +377,7 @@ let loadRelations = function() {
     },
     {
       relationGroupId: 8,
-      order: 1,
+      order: 2,
       categoryGroupId: 3,
       values: null,
       operator: '=',
@@ -385,7 +385,7 @@ let loadRelations = function() {
     },
     {
       relationGroupId: 8,
-      order: 2,
+      order: 3,
       categoryGroupId: 8,
       values: null,
       operator: '=',

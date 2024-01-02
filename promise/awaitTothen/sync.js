@@ -15,7 +15,7 @@ function B(p) {
     console.log(`${p}-B`);
     setTimeout(() => {
       console.log(`${p}-B-resolve`);
-      resolve("B");
+      resolve("HA");
     }, 1500);
   });
 }
@@ -51,17 +51,29 @@ async function c1() {
   let d = c + 1;
 }
 
-async function d1() {
-  let a = await C("d1");
-  let b = E();
-  let c = await D("d1");
-  let d = c + 1;
-}
+// async function d1() {
+//   let a = await C("d1");
+//   let b = E();
+//   let c = await D("d1");
+//   let d = c + 1;
+// }
 
 //   a1();
 c1();
 //   b1();
-d1();
+// d1();
 
-then_c1();
-then_d1();
+function then_c1(value) {
+  let promise = A(value);
+  return promise.then((result)=>{
+    let a = result;
+    let b = E();
+    B(value).then((result)=>{
+      let c = result;
+      let d = c+1;
+    })
+  });
+  // return promise;
+}
+
+// let yy = then_c1('then_c1');
